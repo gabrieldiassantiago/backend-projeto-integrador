@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Cada idoso tem uma conta
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  name      String
+  phone     String  
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relacionamentos
+  contacts  Contact[] // Contatos de emergência
+  alerts    Alert[]   // Alertas de queda
+  
+  @@index([phone])
+}
+
+// Contatos de emergência para cada idoso
+model Contact {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  
+  // Relacionamento com o idoso
+  userId   String @db.ObjectId
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Dados do contato
+  name     String
+  phone    String
+  
+  // Ordem de prioridade (1 = primeiro a ser chamado)
+  priority Int @default(1)
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([userId])
+  @@index([userId, priority])
+}
+
+// Alertas de queda
+model Alert {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  
+  // Relacionamento com o idoso
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Informações da queda
+  location  String?   // Localização se disponível
+  confirmed Boolean  @default(false)
+  
+  // Quem confirmou
+  confirmedBy String? // Nome/telefone de quem confirmou
+  
+  // Timestamps
+  timestamp DateTime @default(now())
+  
+  @@index([userId])
+  @@index([userId, timestamp])
+}
