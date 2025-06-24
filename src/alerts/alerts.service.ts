@@ -114,10 +114,9 @@ export class AlertsService {
             throw new Error(`Nenhum contato cadastrado para ${userId}`);
         }
 
-        // 3. Usando user.name, como você já fez corretamente
         const text =
             `🚨 *Queda detectada!*\n\n` +
-            `👤 Paciente: ${user.name}\n` + // Perfeito!
+            `👤 Paciente: ${user.name}\n` + 
             `📍 Local: ${location}\n` +
             (mapsLink ? `🗺️ Mapa: ${mapsLink}\n` : '') +
             `🕒 Hora: ${new Date(alert.timestamp).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`;

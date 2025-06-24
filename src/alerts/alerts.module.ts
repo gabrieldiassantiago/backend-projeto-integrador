@@ -8,12 +8,12 @@ import { WhatsAppService } from '../baileys/baileys.service';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: false, // Set to true if you want ConfigModule to be global
-      envFilePath: '.env', // Specify your .env file path
+      isGlobal: false, 
+      envFilePath: '.env', 
     }),
   ],
   controllers: [AlertsController],
   providers: [AlertsService, PrismaService, WhatsAppService],
-  exports: [AlertsService], // Export AlertsService if used by other modules
+  exports: [AlertsService], 
 })
 export class AlertsModule {}

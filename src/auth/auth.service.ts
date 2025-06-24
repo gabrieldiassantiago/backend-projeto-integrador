@@ -25,7 +25,12 @@ export class AuthService {
       throw new UnauthorizedException('Credenciais erradas');
     }
     return {
-      access_token: this.jwtService.sign({ sub: user.id, email: user.email, username: user.name }),
+      access_token: this.jwtService.sign({
+        sub: user.id, 
+        email: user.email,
+        username: user.name,
+        id: user.id, 
+      }),
       user,
     };
   }
@@ -50,4 +55,19 @@ export class AuthService {
     const { password, ...result } = user;
     return result;
   }
-}
+
+  async getProfile(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        phone: true,
+      },
+    });
+    if (!user) {
+      throw new UnauthorizedException('Usuário não encontrado');
+    }
+    return user;
+  }}

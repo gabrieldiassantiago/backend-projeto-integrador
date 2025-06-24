@@ -20,7 +20,8 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
+  async getProfile(@Request() req) {
+    // Busca o usuário pelo ID do token JWT
+    return this.authService.getProfile(req.user.id);
   }
 }

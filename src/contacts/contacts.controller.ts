@@ -3,8 +3,8 @@ import { ContactsService } from './contacts.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiBody } from '@nestjs/swagger';
 
-import { CreateContactDto } from './dtos/create-contact.dto'; // Importe o DTO
-import { UpdateContactDto } from './dtos/update-contact.dto'; // Importe o DTO
+import { CreateContactDto } from './dtos/create-contact.dto'; 
+import { UpdateContactDto } from './dtos/update-contact.dto'; 
 
 @ApiBearerAuth('access-token')
 @ApiTags('contatos')
@@ -17,9 +17,9 @@ export class ContactsController {
   @ApiOperation({ summary: 'Cria um novo contato para o usuário autenticado' })
   @ApiResponse({ status: 201, description: 'O contato foi criado com sucesso.' })
   @ApiResponse({ status: 401, description: 'Não autorizado.' })
-  @ApiBody({ type: CreateContactDto, description: 'Dados do novo contato' }) // Use o DTO aqui
-  create(@Request() req, @Body() createContactDto: CreateContactDto) { // Altere o tipo para o DTO
-    return this.contactsService.create(req.user.userId, createContactDto);
+  @ApiBody({ type: CreateContactDto, description: 'Dados do novo contato' }) 
+  create(@Request() req, @Body() createContactDto: CreateContactDto) { 
+    return this.contactsService.create(req.user.id, createContactDto);
   }
 
   @Get()
@@ -27,7 +27,7 @@ export class ContactsController {
   @ApiResponse({ status: 200, description: 'Retorna uma lista de contatos.' })
   @ApiResponse({ status: 401, description: 'Não autorizado.' })
   findAll(@Request() req) {
-    return this.contactsService.findAllByUser(req.user.userId);
+    return this.contactsService.findAllByUser(req.user.id); 
   }
 
   @Patch(':id')
@@ -36,8 +36,8 @@ export class ContactsController {
   @ApiResponse({ status: 200, description: 'O contato foi atualizado com sucesso.' })
   @ApiResponse({ status: 404, description: 'Contato não encontrado.' })
   @ApiResponse({ status: 401, description: 'Não autorizado.' })
-  @ApiBody({ type: UpdateContactDto, description: 'Dados a serem atualizados no contato' }) // Use o DTO aqui
-  update(@Param('id') id: string, @Body() updateContactDto: UpdateContactDto) { // Altere o tipo para o DTO
+  @ApiBody({ type: UpdateContactDto, description: 'Dados a serem atualizados no contato' })
+  update(@Param('id') id: string, @Body() updateContactDto: UpdateContactDto) { 
     return this.contactsService.update(id, updateContactDto);
   }
 
