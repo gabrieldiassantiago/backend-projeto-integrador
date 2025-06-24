@@ -1,98 +1,146 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 📦 Backend do Projeto Integrador (UNISAL)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este repositório contém o código-fonte do backend para o Projeto Integrador, desenvolvido com **NestJS**. Atualmente, já oferece funcionalidades de autenticação de usuários, gerenciamento de contatos e um sistema de alertas de queda que se integra com o **WhatsApp** para notificar contatos de emergência.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 🧭 Visão Geral
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+O backend aqui é responsável por fazer toda a lógica que será tratada posteriormente
 
-## Project setup
+### 🔧 Tecnologias Utilizadas
 
-```bash
-$ yarn install
+- **NestJS** – Framework para aplicações Node.js
+- **Prisma ORM** – Acesso ao banco de dados com TypeScript
+- **JWT** – Autenticação segura com JSON Web Tokens
+- **WhatsApp Web.js** – Integração com WhatsApp
+- **OpenCage Geocoding API** – Geolocalização reversa
+
+---
+
+## 📁 Estrutura do Projeto
+
+```text
+.
+├── src/
+│   ├── alerts/              # Alertas de queda
+│   ├── auth/                # Autenticação (registro, login)
+│   ├── baileys/             # Serviço WhatsApp
+│   ├── contacts/            # Contatos de emergência
+│   ├── app.controller.ts
+│   ├── app.module.ts
+│   ├── app.service.ts
+│   ├── main.ts
+│   └── prisma.service.ts
+├── test/                    # Testes end-to-end
+├── .env.example             # Variáveis de ambiente (exemplo)
+├── .gitignore
+├── eslint.config.mjs
+├── nest-cli.json
+├── package.json
+├── tsconfig.json
+└── tsconfig.build.json
 ```
 
-## Compile and run the project
+
+# 🚀 Primeiros Passos
+
+## ✅ Requisitos
+
+- Node.js `v20+`
+- Yarn ou npm
+- PostgreSQL ou outro banco compatível
+- Conta ativa no WhatsApp
+- Chave da API OpenCage
+
+---
+
+## 📥 Clonando o Repositório
 
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+git clone https://github.com/gabrieldiassantiago/backend-projeto-integrador.git
+cd backend-projeto-integrador
 ```
 
-## Run tests
+# 📦 Instalando Dependências
 
 ```bash
-# unit tests
-$ yarn run test
+# Com Yarn
+yarn install
 
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+# Com npm
+npm install
 ```
 
-## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+---
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+# ⚙️ Configurando Ambiente
+Crie um arquivo `.env` com base no `.env.example`:
+
+```markdown
+
+
+DATABASE_URL="postgresql://user:password@localhost:5432/mydatabase?schema=public"
+JWT_SECRET="sua-chave-secreta-jwt"
+PORT=3000
+OPENCAGE_API_KEY="sua-chave-api-opencage"
+```
+
+ℹ️ A chave da OpenCage está atualmente no código (alerts.service.ts). Ainda vamos manter ela lá...
+
+# ▶️ Rodando o Projeto
+
+## Modo Desenvolvimento
 
 ```bash
-$ yarn install -g @nestjs/mau
-$ mau deploy
+yarn start:dev
+# ou
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
-## Resources
+# 🤳 Conectar ao WhatsApp
 
-Check out a few resources that may come in handy when working with NestJS:
+Para iniciar o backend (o serviço de conexão), você deverá ler o Qrcode que será gerado no terminal, após isso, a sessão será salva em /auth
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+---
 
-## Stay in touch
+# 🔐 Endpoints de Autenticação
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Algumas coisas ainda vão ser refatoradas.. caso alguém tiver sugestões, pode deixar também
 
-## License
+```markdown
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+| Método | Rota             | Descrição            |
+|--------|------------------|---------------------|
+| POST   | `/auth/register` | Cria novo usuário    |
+| POST   | `/auth/login`    | Autentica usuário    |
+| GET    | `/auth/profile`  | Retorna usuário logado|
+```
+
+# 🚨 Endpoints de Alertas
+```markdown
+| Método | Rota                  | Descrição                         |
+|--------|-----------------------|----------------------------------|
+| POST   | `/alerts`             | Cria e envia alerta de queda     |
+| GET    | `/alerts/testar-fila` | Testa fila com múltiplos alertas (dev) |
+```
+Aviso: a rota testar-fila pode dar bug se colocar um valor alto demais (pode até perder o zap zap)
+
+# 📌 Observações Importantes
+
+- `reverseGeocode()` está lenta → precisa de otimização.  
+- O parâmetro `confidence` ainda não está sendo usado corretamente.  
+- Expiração do JWT está em 24h → precisa ser ajustado pois o idoso não consegue fazer a autenticação por conta própria
+- Minha intenção é alterar o serviço de WhatsApp para o `Baileys`, mas sem sucesso ainda, preciso estudar mais a documentação deles, é bem abstrata...
+
+# 🤝 Contribuição
+
+Para poder usar o mesmo repo que o meu, você pode abrir um Pull e enviar para poder contribuir com o código
+
+- Abrir uma issue  
+- Enviar um Pull Request  
+- Sugerir melhorias  
