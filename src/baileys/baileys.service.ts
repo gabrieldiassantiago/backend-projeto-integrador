@@ -99,6 +99,13 @@ export class WhatsAppService implements OnModuleInit {
         }
     }
 
+    /**
+     *
+    * Tenta se reconectar baseado nas quantidades maximas (se ele ultrapassar 
+    * ja nao vai)
+     */
+    
+
     private async tentarReconectar() {
         if (this.tentativas < this.MAX_TENTATIVAS) {
             const delay = Math.pow(2, this.tentativas) * this.TEMPO_BASE_RETRY;
