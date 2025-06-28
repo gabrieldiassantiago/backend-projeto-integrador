@@ -103,7 +103,7 @@ export class WhatsAppService implements OnModuleInit {
      *
     * Tenta se reconectar baseado nas quantidades maximas (se ele ultrapassar 
     * ja nao vai)
-    * testeeesss
+    * testeeesssaa
      */
     
 
