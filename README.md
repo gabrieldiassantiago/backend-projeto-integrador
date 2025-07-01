@@ -14,6 +14,7 @@ O backend aqui é responsável por fazer toda a lógica que será tratada poster
 - **Prisma ORM** – Acesso ao banco de dados com TypeScript
 - **JWT** – Autenticação segura com JSON Web Tokens
 - **WhatsApp Web.js** – Integração com WhatsApp
+- **GraphQL (Apollo Server)** – API flexível via GraphQL
 - **OpenCage Geocoding API** – Geolocalização reversa
 
 ---
@@ -129,6 +130,19 @@ Algumas coisas ainda vão ser refatoradas.. caso alguém tiver sugestões, pode 
 | GET    | `/alerts/testar-fila` | Testa fila com múltiplos alertas (dev) |
 ```
 Aviso: a rota testar-fila pode dar bug se colocar um valor alto demais (pode até perder o zap zap)
+
+## 🔌 Endpoint GraphQL
+
+Além dos endpoints REST, o backend agora expõe um endpoint GraphQL disponível em `/graphql`.
+Você pode acessar o playground para testar consultas e mutações.
+
+Exemplo de consulta:
+
+```graphql
+query {
+  hello
+}
+```
 
 # 📌 Observações Importantes
 
